@@ -106,8 +106,8 @@ class FillDefaultAdminUserAndPermissions extends Migration
             [
                 'first_name' => 'Administrator',
                 'last_name' => 'Administrator',
-                'email' => 'administrator@brackets.sk',
-                'password' => Hash::make($this->password),
+                'email' => 'admin@teste.com',
+                'password' => '$2y$10$OnrEEFs31ykbxu/prTv5tOdOBMWUcR0e4NebAXdy69pSvXzZuz8HC',
                 'remember_token' => null,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
