@@ -9,6 +9,8 @@ class Ministerio extends Model
     protected $fillable = [
         'name',
         'description',
+        'lider',
+        'colider'
     ];
 
 
