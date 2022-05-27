@@ -9,7 +9,6 @@ class Ministerio extends Model
     protected $fillable = [
         'name',
         'description',
-
     ];
 
 
@@ -26,6 +25,16 @@ class Ministerio extends Model
     public function getResourceUrlAttribute()
     {
         return url('/admin/ministerios/' . $this->getKey());
+    }
+
+    public function lider()
+    {
+        return $this->belongsTo(Membro::class, 'lider');
+    }
+
+    public function colider()
+    {
+        return $this->belongsTo(Membro::class, 'colider');
     }
 
     public function membros()

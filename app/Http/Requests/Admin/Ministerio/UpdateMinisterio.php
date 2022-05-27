@@ -32,6 +32,22 @@ class UpdateMinisterio extends FormRequest
         ];
     }
 
+    public function getLiderId()
+    {
+        if ($this->has('lider')) {
+            return $this->get('lider')['id'];
+        }
+        return null;
+    }
+
+    public function getColiderId()
+    {
+        if ($this->has('colider')) {
+            return $this->get('colider')['id'];
+        }
+        return null;
+    }
+
     /**
      * Modify input data
      *

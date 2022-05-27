@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Ministerio\DestroyMinisterio;
 use App\Http\Requests\Admin\Ministerio\IndexMinisterio;
 use App\Http\Requests\Admin\Ministerio\StoreMinisterio;
 use App\Http\Requests\Admin\Ministerio\UpdateMinisterio;
+use App\Models\Membro;
 use App\Models\Ministerio;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
@@ -40,7 +41,16 @@ class MinisteriosController extends Controller
             ['id', 'name'],
 
             // set columns to searchIn
-            ['id', 'name', 'description']
+            ['id', 'name', 'description', 'lider.name', 'colider.name'],
+
+            function ($query) use ($request) {
+
+                // add this line if you want to search by author attributes
+                $query->leftJoin('membros as lider', 'lider.id', '=', 'ministerios.lider');
+                $query->leftJoin('membros as colider', 'colider.id', '=', 'ministerios.colider');
+                $query->select('ministerios.*', 'lider.name as lider', 'colider.name as colider');
+
+            }
         );
 
         if ($request->ajax()) {
@@ -65,7 +75,9 @@ class MinisteriosController extends Controller
     {
         $this->authorize('admin.ministerio.create');
 
-        return view('admin.ministerio.create');
+        return view('admin.ministerio.create', [
+            'membros' => Membro::where('isLeader', true)->get(),
+        ]);
     }
 
     /**
@@ -78,6 +90,9 @@ class MinisteriosController extends Controller
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
+
+        $sanitized['lider'] = $request->getLiderId();
+        $sanitized['colider'] = $request->getColiderId();
 
         // Store the Ministerio
         $ministerio = Ministerio::create($sanitized);
@@ -114,9 +129,12 @@ class MinisteriosController extends Controller
     {
         $this->authorize('admin.ministerio.edit', $ministerio);
 
+        $ministerio->load('lider');
+        $ministerio->load('colider');
 
         return view('admin.ministerio.edit', [
             'ministerio' => $ministerio,
+            'membros' => Membro::where('isLeader', true)->get(),
         ]);
     }
 
@@ -131,6 +149,9 @@ class MinisteriosController extends Controller
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
+
+        $sanitized['lider'] = $request->getLiderId();
+        $sanitized['colider'] = $request->getColiderId();
 
         // Update changed values Ministerio
         $ministerio->update($sanitized);

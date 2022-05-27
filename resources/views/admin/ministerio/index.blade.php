@@ -51,6 +51,8 @@
 
                                         <th is='sortable' :column="'id'">{{ trans('admin.ministerio.columns.id') }}</th>
                                         <th is='sortable' :column="'name'">{{ trans('admin.ministerio.columns.name') }}</th>
+                                        <th is='sortable' :column="'lider'">Líder</th>
+                                        <th is='sortable' :column="'colider'">Co-Líder</th>
 
                                         <th></th>
                                     </tr>
@@ -76,6 +78,8 @@
 
                                     <td>@{{ item.id }}</td>
                                         <td>@{{ item.name }}</td>
+                                        <td>@{{ item.lider }}</td>
+                                        <td>@{{ item.colider }}</td>
                                         
                                         <td>
                                             <div class="row no-gutters">
