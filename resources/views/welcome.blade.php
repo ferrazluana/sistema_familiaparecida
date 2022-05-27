@@ -29,9 +29,9 @@
                     @else
                         <a href="{{ route('login') }}" class="text-lg text-gray-700 border-2 bg-gray-500 dark:text-gray-500 underline w-6">Log in</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-lg text-gray-700 bg-gray-500 dark:text-gray-500 underline w-6">Cadstrar</a>
-                        @endif
+                        <!-- @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-lg text-gray-700 bg-gray-500 dark:text-gray-500 underline w-6">Cadastrar</a>
+                        @endif -->
                     @endauth
                 </div>
             @endif
